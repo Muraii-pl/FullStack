@@ -9,6 +9,7 @@ app.use(cors())
 
 
 
+
 app.use("/posts", postRouter)
 
 db.sequelize.sync().then(()=>{
