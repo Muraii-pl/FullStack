@@ -22,14 +22,14 @@ const Post = () => {
         axios.post("http://localhost:3001/comments", {commentBody: newComment, PostId: id},
             {
                 headers:{
-                    accessToken:sessionStorage.getItem("accessToken"),
+                    accessToken:localStorage.getItem("accessToken"),
                 }
             })
             .then((response)=>{
                 if(response.data.error){
                     console.log(response.data.error)
                 } else {
-                    const commentToAdd = {commentBody: newComment}
+                    const commentToAdd = {commentBody: newComment,username: response.data.username}
                     setComments([...comments, commentToAdd])
                     setNewComment("")
                 }
@@ -57,7 +57,11 @@ const Post = () => {
                 </div>
                 <div className="listOfComments">
                     {comments.map((comment, key) => {
-                        return <div className="comment" key={key}>{comment.commentBody}</div>
+                        return (
+                            <div className="comment" key={key}>{comment.commentBody}
+                                <label htmlFor=""> Username: {comment.username}</label>
+                            </div>
+                        )
                     })}
                 </div>
 
