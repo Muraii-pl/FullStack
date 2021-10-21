@@ -33,7 +33,11 @@ router.post('/login', async (req, res) => {
         if(!match) res.json({error:"Wrong Username and Password"})
 
         const accessToken  = sign({username:user.username,id:user.id},"importatsecert")
-        res.json(accessToken)
+        res.json({
+            token:accessToken,
+            username:user.username,
+            id:user.id
+        })
     })
 
 })
